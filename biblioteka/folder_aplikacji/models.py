@@ -21,9 +21,7 @@ class Kategoria(models.Model):
 class Autor(models.Model):
     imie = models.CharField(max_length=40)
     nazwisko = models.CharField(max_length=60)
-    data_urodzenia = models.DateField(null=True, blank=True)
-    narodowosc = models.CharField(max_length=50, choices=JEZYKI.choices, default=JEZYKI.Polski)
-
+    
     def __str__(self):
         return f"{self.imie} {self.nazwisko}"
 
@@ -31,7 +29,7 @@ class Ksiazka(models.Model):
     tytul = models.CharField(max_length=120)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     kategoria = models.ForeignKey(Kategoria, null=True, blank=True, on_delete=models.SET_NULL)
-    data_publikacji = models.DateField(null=True, blank=True)
+    rok_publikacji = models.PositiveIntegerField(null=True, blank=True)
     jezyk = models.CharField(max_length=20, choices=JEZYKI.choices, default=JEZYKI.Angielski)
     status = models.CharField(max_length=1, choices=STATUS_KSIAZKI, default=STATUS_KSIAZKI[0][0])
 
