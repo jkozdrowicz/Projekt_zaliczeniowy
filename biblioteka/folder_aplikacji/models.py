@@ -35,6 +35,9 @@ class Ksiazka(models.Model):
 
     def __str__(self):
         return f"{self.tytul} by {self.autor}"
+    
+    class Meta:
+        ordering = ['tytul']  # Posortowane alfabetycznie po tytule.
 
 class Czytelnik(models.Model):
     uzytkownik = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -42,6 +45,9 @@ class Czytelnik(models.Model):
 
     def __str__(self):
         return self.uzytkownik.username
+    
+    class Meta:
+        ordering = ['uzytkownik__username']  # Posortowani alfabetycznie według username.
 
 class Wypozyczenie(models.Model):
     czytelnik = models.ForeignKey(Czytelnik, on_delete=models.CASCADE)
@@ -51,6 +57,8 @@ class Wypozyczenie(models.Model):
 
     def __str__(self):
         return f"{self.czytelnik} wypożyczył(a) {self.ksiazka.tytul} dnia {self.data_wypozyczenia}"
-
+    
+    class Meta:
+        ordering = ['data_wypozyczenia']  # Posortowane od najstarszego do najnowszego.
 
 
